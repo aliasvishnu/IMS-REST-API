@@ -12,6 +12,7 @@
 */
 
 Route::get('/product/{id}', function($id){	
-	//return View::make('hello', array('id' => $id));
 	return array('id' => $id);
 });
+
+Route::get('/product/id/{id}', array("uses" => "ProductController@getProductInfoByID"));
