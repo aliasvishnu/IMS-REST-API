@@ -32,6 +32,9 @@ App::after(function($request, $response)
 | integrates HTTP Basic authentication for quick, simple checking.
 |
 */
+Route::filter('json_pretty_print', function($json){
+	return Response::json($json, $status=200, $headers=[], $options=JSON_PRETTY_PRINT);
+});
 
 Route::filter('auth', function()
 {

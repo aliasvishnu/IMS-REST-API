@@ -96,7 +96,7 @@ return array(
 	|
 	*/
 
-	'migrations' => 'create_products_table',
+	'migrations' => 'create_sellers_table',
 
 	/*
 	|--------------------------------------------------------------------------

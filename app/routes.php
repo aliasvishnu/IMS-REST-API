@@ -11,8 +11,7 @@
 |
 */
 
-Route::get('/product/{id}', function($id){	
-	return array('id' => $id);
-});
-
 Route::get('/product/id/{id}', array("uses" => "ProductController@getProductInfoByID"));
+
+Route::get('seller/id/{id}', array("uses" => "SellerController@getSellerInfoByID"));
+

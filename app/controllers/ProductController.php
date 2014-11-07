@@ -1,7 +1,7 @@
 <?php
 
 class ProductController extends BaseController{
-	
+
 	public function getProductInfoByID($id){
 		$product = Product::find($id);
 
@@ -17,7 +17,8 @@ class ProductController extends BaseController{
 										"id" => $product->warehouseid
 							)
 						);
-		return $result;
+		// return $result;
+		return BaseConroller::jsonify($result);
 	}
 }
 

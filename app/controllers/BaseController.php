@@ -15,4 +15,8 @@ class BaseController extends Controller {
 		}
 	}
 
+	public function jsonify($json){
+		return Response::json($json, $status=200, $headers=[], $options=JSON_PRETTY_PRINT);
+	}
+
 }
