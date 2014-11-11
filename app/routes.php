@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/product/id/{id}', array("uses" => "ProductController@getProductInfoByID"));
+Route::get('api/product/id/{id}', array("uses" => "ProductController@getProductInfoByID"));
+Route::delete('api/product/id/{id}', array("uses" => "ProductController@deleteProductByID"));
 
-Route::get('seller/id/{id}', array("uses" => "SellerController@getSellerInfoByID"));
+Route::get('api/seller/id/{id}', array("uses" => "SellerController@getSellerInfoByID"));
+Route::delete('api/seller/id/{id}', array("uses" => "SellerController@deleteSellerByID"));
 

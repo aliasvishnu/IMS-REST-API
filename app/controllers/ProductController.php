@@ -9,16 +9,22 @@ class ProductController extends BaseController{
 						"name" => $product->name,
 						"cost" => $product->cost,
 						"category" => array($product->category => $product->subcategory),
-						"stockRemaining" => $product->stock,
-						"seller" => array(
-									"id" => $product->sellerid
-							),
-						"warehouse" => array(
-										"id" => $product->warehouseid
-							)
+						"manufacturer" => $product->manufacturer
 						);
-		// return $result;
-		return BaseConroller::jsonify($result);
+		return BaseController::jsonify($result);
+	}
+
+	public function deleteProductByID($id){
+		// $product = Product::find($id)->delete();
+
+		$result = array(
+				"id" => $id,
+				"entity" => "product",
+				"requestType" => "DELETE",
+				"status" => 200
+			);
+		
+		return BaseController::jsonify($result);
 	}
 }
 

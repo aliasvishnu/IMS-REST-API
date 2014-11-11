@@ -14,12 +14,9 @@ class CreateUsersTable extends Migration {
 		Schema::create('products', function($table){
 			$table->increments('id');
 			$table->string('name', 100);
-			$table->integer('cost');
-			$table->integer('stock');
-			$table->integer('sellerid');
+			$table->integer('manufacturer');
 			$table->string('category');
 			$table->string('subcategory');
-			$table->integer('warehouseid');
 		});
 	}
 
