@@ -30,21 +30,21 @@ class ProductController extends BaseController{
 
 	public function postProductByName($name){
 		$product = new Product;
-		$product = array(
-			"name" => $name,
-			 "category" => "NA",
-			 "subcategory" => "NA",
-			 "manufacturer" => "NA"	
-			);
+		
+		$product->name = $name;
+		$product->category = $category;
+		$product->subcategory = $subcategory;
+		$product->manufacturer = $manufacturer;
+
 
 		$product->save();
 		$result = array(
 			"entity" => "product",
 			"status" => "Success",
-			"requestType" => "POST"
+			"requestType" => "POST",
 			"product" => $product
 			);
-		return BaseController::jsonify($product);
+		return BaseController::jsonify($result);
 	}
 
 	public function putProductByID($id){
@@ -57,12 +57,29 @@ class ProductController extends BaseController{
 		$result = array(
 			"entity" => "product",
 			"status" => "Success",
-			"requestType" => "PUT"
+			"requestType" => "PUT",
 			"product" => $product
 			);
 
 		return BaseController::jsonify($result);
 	}
+
+	public function getProductList(){
+		$result = Product::all();
+		return BaseController::jsonify($result);	
+	}
+
+	public function getSellersOfProductID($id){
+		$results = ProductSeller::where('productid', '=', $id)->get();
+
+		$temp = array();
+		foreach ($results as $key => $result) {
+			array_push($temp, $result);
+		}
+		return BaseController::jsonify($temp);
+		
+	}
+	
 }
 
 

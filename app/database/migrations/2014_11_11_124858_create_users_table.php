@@ -11,13 +11,13 @@ class CreateUsersTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-		Schema::create('products', function($table){
-			$table->increments('id');
-			$table->string('name', 100);
-			$table->integer('manufacturer');
-			$table->string('category');
-			$table->string('subcategory');
-		});
+		// Schema::create('products', function($table){
+		// 	$table->increments('id');
+		// 	$table->string('name', 100);
+		// 	$table->integer('manufacturer');
+		// 	$table->string('category');
+		// 	$table->string('subcategory');
+		// });
 	}
 
 	/**
@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration {
 	 * @return void
 	 */
 	public function down(){
-		Schema::drop('products');
+		// Schema::drop('products');
 	}
 
 }

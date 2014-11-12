@@ -85,6 +85,16 @@ class SellerController extends BaseController{
 		return BaseController::jsonify($result);
 	}
 
+	public function getSellerList(){
+		$result = Seller::all();
+		return BaseController::jsonify($result);
+	}
+
+	public function getProductsOfSellerID($id){
+		$result = ProductSeller::where('sellerid', '=', $id)->get();
+		return BaseController::jsonify($result);
+	}
+
 }
 
 

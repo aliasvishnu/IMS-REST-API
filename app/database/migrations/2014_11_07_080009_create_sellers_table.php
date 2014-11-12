@@ -11,15 +11,15 @@ class CreateSellersTable extends Migration {
 	 * @return void
 	 */
 	public function up(){
-		Schema::create('sellers', function($table){
-			$table->increments('id');
-			$table->string('name', 200);
-			$table->string('address', 500);
-			$table->string('contact', 100);
-			$table->date('contract_begin');
-			$table->date('contract_end');
-			$table->integer('rating');
-		});
+		// Schema::create('sellers', function($table){
+		// 	$table->increments('id');
+		// 	$table->string('name', 200);
+		// 	$table->string('address', 500);
+		// 	$table->string('contact', 100);
+		// 	$table->date('contract_begin');
+		// 	$table->date('contract_end');
+		// 	$table->integer('rating');
+		// });
 	}
 
 	/**
@@ -28,7 +28,7 @@ class CreateSellersTable extends Migration {
 	 * @return void
 	 */
 	public function down(){
-		Schema::drop('sellers');
+		// Schema::drop('sellers');
 	}
 
 }
