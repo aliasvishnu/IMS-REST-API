@@ -47,7 +47,10 @@ class ProductSellerController extends BaseController{
 		}
 	}
 
-	public function reduceProductCount($productid, $sellerid, $count){
+	public function reduceProductCount(){
+		// $productid
+		// $sellerid
+		// $count
 		// $result = ProductSeller::whereRaw('productid = ? and sellerid = ?', array($productid, $sellerid));
 		// if($result->stock >= $count){
 		// 	$result->stock -= $count;
@@ -84,8 +87,6 @@ class ProductSellerController extends BaseController{
 		$result = ProductSeller::where('sellerid', '=', $id)->get();
 		return BaseController::jsonify($result);
 	}
-
-	
 
 }
 

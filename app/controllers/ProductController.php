@@ -4,13 +4,11 @@ class ProductController extends BaseController{
 	public $restful = true;
 
 	public function getProductInfoByID($id, $apikey){
-		if(!BaseController::authenticate($apikey, 2)){
-			return BaseController::jsonify("Failure");
-		}
-
 		$product = Product::find($id);
 
-		$result = array("id" => $id, 
+		$result = array(
+						"status" => "Success",
+						"id" => $id, 
 						"name" => $product->name,
 						"category" => array($product->category => $product->subcategory),
 						"manufacturer" => $product->manufacturer
@@ -20,20 +18,10 @@ class ProductController extends BaseController{
 	}
 
 	public function deleteProductByID($id){
-		if(!BaseController::authenticate($apikey, 2))
-			return BaseController::jsonify("Failure");
-		
-		return Input::get('apikey');
 		// $product = Product::find($id)->delete();
-
-		$result = array(
-				"id" => $id,
-				"entity" => "product",
-				"requestType" => "DELETE",
-				"status" => "Success"
-			);
+		// ProductSeller::where('productid', '=', $id)->get()->delete();
 		
-		return BaseController::jsonify($result);
+		return BaseController::jsonify($id. " deleted from DB");
 	}
 
 	public function postProductByName($name){
@@ -78,42 +66,33 @@ class ProductController extends BaseController{
 	}
 
 	public function renameProduct($originalname, $apikey){
-		$result = 1;
-		if(!Input::has('newname')){
-			$result = array(
-				"status" => "Failure",
-				"reason" => "No new name provided"
-				);
-		}
-		if(!BaseController:authenticate($apikey, 3)){
-			$result = array(
-				"status" => "Failure",
-				"reason" => "API Key does not have clearance"
-				);
-		}
-		if(!result) return BaseController::jsonify($result);
-		
-		$product = Product::where('name', '=', $originalname)->get();		
-		if($product->isEmpty()){
-			$result = array(
-						"status" => "Failure",
-						"requestType" => "POST",
-						"reason" => "Product not found"
-						);
-		}else{
-			$product->name = $newname;
-			$product->save();
-			$result = array(
-					"status" => "Success",
-					"requestType" => "POST",
-					"message" => $originalname." renamed to ".$newname
-					);
-		}
-		return BaseController::jsonify($result);
-	}
-
-	
-
+		// 	$result = 1;
+		// 	if(!Input::has('newname')){
+		// 		$result = array(
+		// 			"status" => "Failure",
+		// 			"reason" => "No new name provided"
+		// 			);
+		// 	}
+		// 	if(!result) return BaseController::jsonify($result);
+			
+		// 	$product = Product::where('name', '=', $originalname)->get();		
+		// 	if($product->isEmpty()){
+		// 		$result = array(
+		// 					"status" => "Failure",
+		// 					"requestType" => "POST",
+		// 					"reason" => "Product not found"
+		// 					);
+		// 	}else{
+		// 		$product->name = $newname;
+		// 		$product->save();
+		// 		$result = array(
+		// 				"status" => "Success",
+		// 				"requestType" => "POST",
+		// 				"message" => $originalname." renamed to ".$newname
+		// 				);
+		// 	}
+		// 	return BaseController::jsonify($result);
+	 }
 
 }
 

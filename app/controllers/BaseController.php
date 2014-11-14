@@ -26,4 +26,29 @@ class BaseController extends Controller {
 		else return 0;
 	}
 
+	public function returnError($errorCode){
+		$error = array();
+		switch($errorCode){
+
+			case 'a100' : 
+						$error = array(
+							"status" => "Failure",
+							"reason" => "API Key doesn't have the required privileges"
+							);
+						break;
+			case 'a200' : 
+						$error = array(
+							"status" => "Failure",
+							"reason" => "Failed to fetch POST Data"
+							);
+						break;
+			default: $error = array(
+							"status" => "Failure",
+							"reason" => "undefined"
+						);
+		}
+
+		return BaseController::jsonify($error);
+	}
+
 }

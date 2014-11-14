@@ -84,10 +84,17 @@ Route::filter('guest', function()
 |
 */
 
-Route::filter('csrf', function()
-{
+Route::filter('csrf', function(){
 	if (Session::token() != Input::get('_token'))
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+Route::filter('apikeypermissions', function($route, $request, $value){
+	$apikey = $route->getParameter('apikey');
+	$controller = new BaseController;
+	if(!$controller->authenticate($apikey, $value)) return View::make('hello')->with('id', 404);
+});
+
+

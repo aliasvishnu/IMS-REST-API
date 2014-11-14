@@ -10,26 +10,32 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('/', function(){
+	return View::make('hello')->with('id', 404);
+});
 
 /* Product */
-Route::get('api/product/{id}/{apikey}', array("uses" => "ProductController@getProductInfoByID"));
-Route::delete('api/product/{id}/{apikey}', array("uses" => "ProductController@deleteProductByID"));
-Route::post('api/product/{name}/{apikey}', array("uses" => "ProductController@postProductByName"));
-Route::put('api/product/{id}/{apikey}', array("uses" => "ProductController@putProductByID"));
+Route::get('api/product/{id}/{apikey}', array("before" => "apikeypermissions:1", "uses" => "ProductController@getProductInfoByID"));
+Route::delete('api/product/{id}/{apikey}', array("before" => "apikeypermissions:2", "uses" => "ProductController@deleteProductByID"));
+Route::post('api/product/{name}/{apikey}', array("before" => "apikeypermissions:2", "uses" => "ProductController@postProductByName"));
+Route::put('api/product/{id}/{apikey}', array("before" => "apikeypermissions:2", "uses" => "ProductController@putProductByID"));
 
-Route::get('api/product', array("uses" => "ProductController@getProductList"));
+Route::get('api/product/{apikey}', array("before" => "apikeypermissions:1", "uses" => "ProductController@getProductList"));
 
 /* Seller */
-Route::get('api/seller/{id}', array("uses" => "SellerController@getSellerInfoByID"));
-Route::delete('api/seller/{id}', array("uses" => "SellerController@deleteSellerByID"));
-Route::post('api/seller/{name}', array("uses" => "SellerController@postSellerByName"));
-Route::put('api/seller/{id}', array("uses" => "SellerController@putSellerByID"));
+Route::get('api/seller/{id}/{apikey}', array("before" => "apikeypermissions:1", "uses" => "SellerController@getSellerInfoByID"));
+Route::delete('api/seller/{id}/{apikey}', array("before" => "apikeypermissions:3", "uses" => "SellerController@deleteSellerByID"));
+Route::post('api/seller/{name}/{apikey}', array("before" => "apikeypermissions:2", "uses" => "SellerController@postSellerByName"));
+Route::put('api/seller/{id}/{apikey}', array("before" => "apikeypermissions:2", "uses" => "SellerController@putSellerByID"));
 
-Route::get('api/seller', array("uses" => "SellerController@getSellerList"));
+Route::get('api/seller/{apikey}', array("before" => "apikeypermissions:1", "uses" => "SellerController@getSellerList"));
 
 /* Product-Seller Relationship */
-Route::get('api/getsellersof/{id}', array("uses" => "ProductController@getSellersOfProductID"));
-Route::get('api/getproductsof/{id}', array("uses" => "SellerController@getProductsOfSellerID"));
+Route::get('api/getsellersof/{id}', array("before" => "apikeypermissions:1", "uses" => "ProductSellerController@getSellersOfProductID"));
+Route::get('api/getproductsof/{id}', array("before" => "apikeypermissions:1", "uses" => "ProductSellerController@getProductsOfSellerID"));
+Route::post('api/updateProduct/{apikey}', array("before" => "apikeypermissions:2", "uses" => "ProductSellerController@addUpdateProduct")); 
+Route::post('api/reduceProductCount/{apikey}', array("before" => "apikeypermissions:2", "uses" => "ProductSellerController@reduceProductCount"));
+Route::post('api/removeProduct/{apikey}', array("before" => "apikeypermissions:2", "uses" => "ProductSellerController@removeProductFromSellerOffering"));
 
 /* Register For API Key */
 Route::post('api/register', array("uses" => "UserController@postRegister"));
