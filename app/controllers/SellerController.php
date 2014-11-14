@@ -89,11 +89,43 @@ class SellerController extends BaseController{
 		$result = Seller::all();
 		return BaseController::jsonify($result);
 	}
+	
+	public function renameSeller($id, $apikey){
+		if(!BaseController::authenticate($apikey, 3)) 
+			return BaseController::jsonify(array("status" => "Failure", "reason" => "API Key has insufficient privileges"));
 
-	public function getProductsOfSellerID($id){
-		$result = ProductSeller::where('sellerid', '=', $id)->get();
+		$seller = Seller::find($id);
+		$result = 1
+		if(!Input::has('newname')){
+			$result = array(
+				"status" => "Failure",
+				"reason" => "Input not found"
+				);
+		}
+
+		$seller = Seller::find($id);
+		if($seller->isEmpty()){
+			$result = array(
+				"status" => "Failure",
+				"reason" => "SellerID not found"
+				);
+		}
+
+		if($result != 1) return BaseController::jsonify($result);
+
+		$seller->name = Input::get('newname');
+		$seller->save();
+		$result = array(
+			"status" => "Success",
+			"message" => "Name renamed to ". Input::get('newname')
+			);
+
 		return BaseController::jsonify($result);
 	}
+
+
+
+	
 
 }
 

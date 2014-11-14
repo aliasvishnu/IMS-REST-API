@@ -3,7 +3,11 @@
 class ProductController extends BaseController{
 	public $restful = true;
 
-	public function getProductInfoByID($id){
+	public function getProductInfoByID($id, $apikey){
+		if(!BaseController::authenticate($apikey, 2)){
+			return BaseController::jsonify("Failure");
+		}
+
 		$product = Product::find($id);
 
 		$result = array("id" => $id, 
@@ -16,6 +20,10 @@ class ProductController extends BaseController{
 	}
 
 	public function deleteProductByID($id){
+		if(!BaseController::authenticate($apikey, 2))
+			return BaseController::jsonify("Failure");
+		
+		return Input::get('apikey');
 		// $product = Product::find($id)->delete();
 
 		$result = array(
@@ -69,17 +77,44 @@ class ProductController extends BaseController{
 		return BaseController::jsonify($result);	
 	}
 
-	public function getSellersOfProductID($id){
-		$results = ProductSeller::where('productid', '=', $id)->get();
-
-		$temp = array();
-		foreach ($results as $key => $result) {
-			array_push($temp, $result);
+	public function renameProduct($originalname, $apikey){
+		$result = 1;
+		if(!Input::has('newname')){
+			$result = array(
+				"status" => "Failure",
+				"reason" => "No new name provided"
+				);
 		}
-		return BaseController::jsonify($temp);
+		if(!BaseController:authenticate($apikey, 3)){
+			$result = array(
+				"status" => "Failure",
+				"reason" => "API Key does not have clearance"
+				);
+		}
+		if(!result) return BaseController::jsonify($result);
 		
+		$product = Product::where('name', '=', $originalname)->get();		
+		if($product->isEmpty()){
+			$result = array(
+						"status" => "Failure",
+						"requestType" => "POST",
+						"reason" => "Product not found"
+						);
+		}else{
+			$product->name = $newname;
+			$product->save();
+			$result = array(
+					"status" => "Success",
+					"requestType" => "POST",
+					"message" => $originalname." renamed to ".$newname
+					);
+		}
+		return BaseController::jsonify($result);
 	}
+
 	
+
+
 }
 
 

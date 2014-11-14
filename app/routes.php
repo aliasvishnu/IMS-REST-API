@@ -12,10 +12,10 @@
 */
 
 /* Product */
-Route::get('api/product/{id}', array("uses" => "ProductController@getProductInfoByID"));
-Route::delete('api/product/{id}', array("uses" => "ProductController@deleteProductByID"));
-Route::post('api/product/{name}', array("uses" => "ProductController@postProductByName"));
-Route::put('api/product/{id}', array("uses" => "ProductController@putProductByID"));
+Route::get('api/product/{id}/{apikey}', array("uses" => "ProductController@getProductInfoByID"));
+Route::delete('api/product/{id}/{apikey}', array("uses" => "ProductController@deleteProductByID"));
+Route::post('api/product/{name}/{apikey}', array("uses" => "ProductController@postProductByName"));
+Route::put('api/product/{id}/{apikey}', array("uses" => "ProductController@putProductByID"));
 
 Route::get('api/product', array("uses" => "ProductController@getProductList"));
 
@@ -30,4 +30,9 @@ Route::get('api/seller', array("uses" => "SellerController@getSellerList"));
 /* Product-Seller Relationship */
 Route::get('api/getsellersof/{id}', array("uses" => "ProductController@getSellersOfProductID"));
 Route::get('api/getproductsof/{id}', array("uses" => "SellerController@getProductsOfSellerID"));
+
+/* Register For API Key */
+Route::post('api/register', array("uses" => "UserController@postRegister"));
+
+
 
