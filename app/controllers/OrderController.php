@@ -18,7 +18,8 @@ class OrderController extends BaseController{
 						"orders" => $orders
 			));
 	}
-
+	
+	/* Method not supported due to framework limitations */
 	public function getOrdersByProductID($apikey, $productid){
 		$orders = Order::where('productid', "=", $productid);
 		return BaseController::jsonify(array(
@@ -27,6 +28,7 @@ class OrderController extends BaseController{
 			));	
 	}
 
+	/* Method not supported due to framework limitations */
 	public function getOrdersBySellerID($apikey, $sellerid){
 		$orders = Order::where('sellerid', "=", $sellerid);
 		return BaseController::jsonify(array(
@@ -34,12 +36,14 @@ class OrderController extends BaseController{
 						"orders" => $orders
 			));	
 	}
+
 	public function getOrdersByCustomerID($apikey, $customerid){
-		$orders = Order::where('customerid', "=", $customerid);
-		return BaseController::jsonify(array(
-						"status" => "Success",
-						"orders" => $orders
-			));	
+		$orders = Order::where('customerid', '=', $customerid);
+		// return BaseController::jsonify(array(
+		// 				"status" => "Success",
+		// 				"orders" => $orders
+		// 	));	
+		return $orders;
 	}
 
 	public function postOrders($apikey){

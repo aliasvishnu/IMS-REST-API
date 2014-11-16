@@ -44,6 +44,8 @@ Route::post('api/register', array("uses" => "UserController@postRegister"));
 Route::get('api/order/{id}/{apikey}', array("uses" => "OrderController@getOrderInfoByID"));
 Route::get('api/order/{apikey}', array("uses" => "OrderController@getOrders"));
 Route::get('api/order/product/{id}/{apikey}', array("uses" => "OrderController@getOrdersByProductID"));
+Route::get('api/order/seller/{id}/{apikey}', array("uses" => "OrderController@getOrdersBySellerID"));
+Route::get('api/order/customer/{id}/{apikey}', array("uses" => "OrderController@getOrdersByCustomerID"));
 
 
 
