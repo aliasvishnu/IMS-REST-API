@@ -31,14 +31,19 @@ Route::put('api/seller/{id}/{apikey}', array("before" => "apikeypermissions:2", 
 Route::get('api/seller/{apikey}', array("before" => "apikeypermissions:1", "uses" => "SellerController@getSellerList"));
 
 /* Product-Seller Relationship */
-Route::get('api/getsellersof/{id}', array("before" => "apikeypermissions:1", "uses" => "ProductSellerController@getSellersOfProductID"));
-Route::get('api/getproductsof/{id}', array("before" => "apikeypermissions:1", "uses" => "ProductSellerController@getProductsOfSellerID"));
+Route::get('api/getsellersof/{id}/{apikey}', array("before" => "apikeypermissions:1", "uses" => "ProductSellerController@getSellersOfProductID"));
+Route::get('api/getproductsof/{id}/{apikey}', array("before" => "apikeypermissions:1", "uses" => "ProductSellerController@getProductsOfSellerID"));
 Route::post('api/updateProduct/{apikey}', array("before" => "apikeypermissions:2", "uses" => "ProductSellerController@addUpdateProduct")); 
-Route::post('api/reduceProductCount/{apikey}', array("before" => "apikeypermissions:2", "uses" => "ProductSellerController@reduceProductCount"));
+Route::post('api/reduceProductCount/{apikey}/{productid}/{sellerid}', array("before" => "apikeypermissions:2", "uses" => "ProductSellerController@reduceProductCount"));
 Route::post('api/removeProduct/{apikey}', array("before" => "apikeypermissions:2", "uses" => "ProductSellerController@removeProductFromSellerOffering"));
 
 /* Register For API Key */
 Route::post('api/register', array("uses" => "UserController@postRegister"));
+
+/* Orders */
+Route::get('api/order/{id}/{apikey}', array("uses" => "OrderController@getOrderInfoByID"));
+Route::get('api/order/{apikey}', array("uses" => "OrderController@getOrders"));
+Route::get('api/order/product/{id}/{apikey}', array("uses" => "OrderController@getOrdersByProductID"));
 
 
 

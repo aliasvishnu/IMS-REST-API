@@ -51,4 +51,11 @@ class BaseController extends Controller {
 		return BaseController::jsonify($error);
 	}
 
+	public function checkPrerequisites($requirements){
+		foreach($requirements as $requirement){
+			if(!Input::has($requirement)) return 0;
+		}
+		return 1;
+	}
+
 }

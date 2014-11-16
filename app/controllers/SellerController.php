@@ -28,11 +28,9 @@ class SellerController extends BaseController{
 	}
 
 	public function deleteSellerByID($id){
-		$result = Seller::find($id)->delete();
+		// $result = Seller::find($id)->delete();
 		$result = array(
 				"id" => $id,
-				"entity" => "seller",
-				"requestType" => "DELETE",
 				"status" => "Success"
 			);
 		return BaseController::jsonify($result);

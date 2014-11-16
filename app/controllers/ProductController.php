@@ -28,16 +28,13 @@ class ProductController extends BaseController{
 		$product = new Product;
 		
 		$product->name = $name;
-		$product->category = $category;
-		$product->subcategory = $subcategory;
-		$product->manufacturer = $manufacturer;
-
+		$product->category = 'category';
+		$product->subcategory = 'subcategory';
+		$product->manufacturer = 'manufacturer';
 
 		$product->save();
 		$result = array(
-			"entity" => "product",
 			"status" => "Success",
-			"requestType" => "POST",
 			"product" => $product
 			);
 		return BaseController::jsonify($result);
@@ -51,9 +48,7 @@ class ProductController extends BaseController{
 		$product->subcategory = Input::get('subcategory', $product->subcategory);		
 		$product->save();
 		$result = array(
-			"entity" => "product",
 			"status" => "Success",
-			"requestType" => "PUT",
 			"product" => $product
 			);
 
