@@ -70,28 +70,33 @@ class ProductSellerController extends BaseController{
 		return BaseController::jsonify($result);
 	}
 
-	public function reduceProductCount($apikey, $productid, $sellerid){
-		$result = ProductSeller::whereRaw('productid = ? and sellerid = ?', array($productid, $sellerid))->get()->first();
-		$count = Input::get('count');
+	public function reduceProductCountMain($productid, $sellerid, $count){
+		$result = ProductSeller::whereRaw("productid = ? and sellerid = ?", array($productid, $sellerid))->get()->first();
 		if($result->stock >= $count){
-			$result->stock -= $count;
+			// $result->stock -= $count;
 			DB::update("update product_seller set stock=$result->stock where productid=$productid and sellerid=$sellerid");
 
-			return BaseController::jsonify(array(
+			return array(
 						"status" => "Success",
 						"productid" => $productid,
 						"sellerid" => $sellerid,
 						"remainingStock" => $result->stock
-				));
+				);
 		}else{
-			return BaseController::jsonify(array(
+			return array(
 						"status" => "Failure",
 						"reason" => "Not enough stock",
 						"productid" => $productid,
 						"sellerid" => $sellerid,
 						"remainingStock" => $result->stock
-				));
+				);
 		}
+		
+	}
+
+	public function reduceProductCount($apikey, $productid, $sellerid){
+		$count = Input::get('count');
+		return BaseController::jsonify(reduceProductCountMain($productid, $sellerid, $count));
 	}
 
 	public function getSellersOfProductID($id){

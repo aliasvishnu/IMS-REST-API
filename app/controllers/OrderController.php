@@ -37,21 +37,46 @@ class OrderController extends BaseController{
 			));	
 	}
 
-	public function getOrdersByCustomerID($apikey, $customerid){
-		$orders = Order::where('customerid', '=', $customerid);
-		// return BaseController::jsonify(array(
-		// 				"status" => "Success",
-		// 				"orders" => $orders
-		// 	));	
-		return $orders;
+	public function getOrdersByCustomerID($customerid, $apikey){
+		$orders = Order::where('customerid', '=', $customerid)->get();
+		return BaseController::jsonify(array(
+						"status" => "Success",
+						"orders" => $orders
+			));	
 	}
 
-	public function postOrders($apikey){
-		// if()
+	public function postOrders(){
+		if(!BaseController::checkPrerequisites(array(
+				'customerid', 'sellerids', 'productids', 
+				'stocks', 'billingaddress', 'shippingaddress'
+			))) return BaseController::returnError('a200');
+		
+		$order = new Order;
+		$order->customerid = Input::get('customerid');
+		$order->sellerids = Input::get('sellerids');
+		$order->productids = Input::get('productids');
+		$order->stocks = Input::get('stocks');
+		$order->billingaddress = Input::get('billingaddress');
+		$order->shippingaddress = Input::get('shippingaddress');
+		$order->save();
+
+		$productList = explode('-', $order->productids);
+		$sellerList = explode('-', $order->sellerids);
+		$stockList = explode('-', $order->stocks);
+
+		$result = array();
+
+		$length = sizeof($productList);
+		$psControllerObject = new ProductSellerController;
+		for($i = 0; $i < $length; $i++){				
+			array_push($result,
+					   $psControllerObject->reduceProductCountMain(
+									$productList[$i],
+									$sellerList[$i],
+									$stockList[$i]));
+		}
+		return BaseController::jsonify($result);
 	}
-
-
-
 }
 
 ?>
