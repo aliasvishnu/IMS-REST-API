@@ -32,6 +32,12 @@ App::after(function($request, $response)
 | integrates HTTP Basic authentication for quick, simple checking.
 |
 */
+<<<<<<< HEAD
+=======
+Route::filter('json_pretty_print', function($json){
+	return Response::json($json, $status=200, $headers=[], $options=JSON_PRETTY_PRINT);
+});
+>>>>>>> 52bda63baa96b64927347ab586d4896409bfff4d
 
 Route::filter('auth', function()
 {
@@ -81,10 +87,25 @@ Route::filter('guest', function()
 |
 */
 
+<<<<<<< HEAD
 Route::filter('csrf', function()
 {
+=======
+Route::filter('csrf', function(){
+>>>>>>> 52bda63baa96b64927347ab586d4896409bfff4d
 	if (Session::token() != Input::get('_token'))
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+<<<<<<< HEAD
+=======
+
+Route::filter('apikeypermissions', function($route, $request, $value){
+	$apikey = $route->getParameter('apikey');
+	$controller = new BaseController;
+	if(!$controller->authenticate($apikey, $value)) return View::make('hello')->with('id', 404);
+});
+
+
+>>>>>>> 52bda63baa96b64927347ab586d4896409bfff4d

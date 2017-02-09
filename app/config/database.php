@@ -55,7 +55,11 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => '127.0.0.1',
+<<<<<<< HEAD
 			'database'  => 'firstapp',
+=======
+			'database'  => 'ims',
+>>>>>>> 52bda63baa96b64927347ab586d4896409bfff4d
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
@@ -66,8 +70,13 @@ return array(
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',
+<<<<<<< HEAD
 			'database' => 'forge',
 			'username' => 'forge',
+=======
+			'database' => 'ims',
+			'username' => 'root',
+>>>>>>> 52bda63baa96b64927347ab586d4896409bfff4d
 			'password' => '',
 			'charset'  => 'utf8',
 			'prefix'   => '',
@@ -96,7 +105,11 @@ return array(
 	|
 	*/
 
+<<<<<<< HEAD
 	'migrations' => 'create_paintings',
+=======
+	'migrations' => 'create_orders_table',
+>>>>>>> 52bda63baa96b64927347ab586d4896409bfff4d
 
 	/*
 	|--------------------------------------------------------------------------
