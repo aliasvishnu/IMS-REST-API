@@ -7,20 +7,17 @@ class BaseController extends Controller {
 	 *
 	 * @return void
 	 */
-<<<<<<< HEAD
+
 	protected function setupLayout()
 	{
-=======
-	protected function setupLayout(){
->>>>>>> 52bda63baa96b64927347ab586d4896409bfff4d
+
 		if ( ! is_null($this->layout))
 		{
 			$this->layout = View::make($this->layout);
 		}
 	}
 
-<<<<<<< HEAD
-=======
+
 	public function jsonify($json){
 		return Response::json($json, $status=200, $headers=[], $options=JSON_PRETTY_PRINT);
 	}
@@ -64,5 +61,5 @@ class BaseController extends Controller {
 		return 1;
 	}
 
->>>>>>> 52bda63baa96b64927347ab586d4896409bfff4d
+
 }
